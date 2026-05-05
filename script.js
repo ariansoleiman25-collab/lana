@@ -147,11 +147,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== MOBILE NAV TOGGLE =====
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
-  navToggle.addEventListener('click', () => {
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
     navLinks.classList.toggle('open');
+    navToggle.classList.toggle('active');
   });
   navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('active');
+    });
+  });
+  // Close nav when tapping outside
+  document.addEventListener('click', (e) => {
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('active');
+    }
   });
 
   // ===== SCROLL REVEAL =====
@@ -221,9 +233,17 @@ document.addEventListener('DOMContentLoaded', () => {
     startBreathing();
   });
 
-  document.getElementById('btn-close-comfort')?.addEventListener('click', () => {
+  function closeComfort() {
     comfortMsg.classList.remove('show');
     document.body.style.overflow = '';
+    clearInterval(breathingInterval);
+  }
+
+  document.getElementById('btn-close-comfort')?.addEventListener('click', closeComfort);
+
+  // Click background to close
+  comfortMsg?.addEventListener('click', (e) => {
+    if (e.target === comfortMsg) closeComfort();
   });
 
   let breathingInterval;
@@ -252,11 +272,18 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => closeBtn.classList.add('show'), (steps.length + 1) * 1500);
   });
 
-  document.getElementById('btn-close-scared')?.addEventListener('click', () => {
+  function closeScared() {
     scaredMsg.classList.remove('show');
     document.body.style.overflow = '';
     scaredMsg.querySelectorAll('.scared-step').forEach(s => s.classList.remove('show'));
     scaredMsg.querySelector('.btn-close-scared')?.classList.remove('show');
+  }
+
+  document.getElementById('btn-close-scared')?.addEventListener('click', closeScared);
+
+  // Click background to close
+  scaredMsg?.addEventListener('click', (e) => {
+    if (e.target === scaredMsg) closeScared();
   });
 
   // ===== READ AGAIN =====
@@ -918,5 +945,207 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // First note after 45 seconds
   noteTimeout = setTimeout(showLoveNote, 45000);
+
+  // ===== DIGITAL TASBIH =====
+  const tasbihBead = document.getElementById('tasbih-bead');
+  const tasbihCount = document.getElementById('tasbih-count');
+  const tasbihDhikr = document.getElementById('tasbih-dhikr');
+  const tasbihReset = document.getElementById('tasbih-reset');
+  let count = 0;
+
+  if (tasbihBead) {
+    tasbihBead.addEventListener('click', () => {
+      count++;
+      tasbihCount.textContent = count;
+
+      // Vibrate on phone
+      if (navigator.vibrate) navigator.vibrate(30);
+
+      // Glow at 33
+      if (count === 33) {
+        tasbihBead.classList.add('tasbih-complete');
+        setTimeout(() => tasbihBead.classList.remove('tasbih-complete'), 600);
+      }
+    });
+
+    // Dhikr type selector
+    document.querySelectorAll('.tasbih-type').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tasbih-type').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        tasbihDhikr.textContent = btn.dataset.dhikr;
+        count = 0;
+        tasbihCount.textContent = '0';
+      });
+    });
+
+    tasbihReset?.addEventListener('click', () => {
+      count = 0;
+      tasbihCount.textContent = '0';
+    });
+  }
+
+  // ===== FALLING STARS =====
+  const starsContainer = document.getElementById('falling-stars-container');
+
+  function createFallingStar() {
+    if (!starsContainer) return;
+    const star = document.createElement('div');
+    star.className = 'falling-star';
+    star.style.left = (20 + Math.random() * 60) + '%';
+    star.style.top = (Math.random() * 30) + '%';
+    const duration = 2 + Math.random() * 3;
+    star.style.animationDuration = duration + 's';
+    starsContainer.appendChild(star);
+
+    // Click to make a wish
+    star.addEventListener('click', (e) => {
+      e.stopPropagation();
+      star.remove();
+      const popup = document.createElement('div');
+      popup.className = 'wish-popup';
+      popup.style.left = Math.min(e.clientX, window.innerWidth - 340) + 'px';
+      popup.style.top = Math.min(e.clientY, window.innerHeight - 200) + 'px';
+      popup.innerHTML = `
+        <p>✨ You caught a star!</p>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.5)">Make a wish and let it go…</p>
+        <input type="text" placeholder="Type your wish..." id="wish-input" />
+        <button id="wish-send">Send to the sky ✨</button>
+      `;
+      document.body.appendChild(popup);
+
+      popup.querySelector('#wish-send').addEventListener('click', () => {
+        popup.style.opacity = '0';
+        popup.style.transform = 'translateY(-30px)';
+        popup.style.transition = 'all 0.5s ease';
+        setTimeout(() => popup.remove(), 500);
+      });
+
+      // Auto-remove after 10s
+      setTimeout(() => { if (popup.parentNode) popup.remove(); }, 10000);
+    });
+
+    setTimeout(() => { if (star.parentNode) star.remove(); }, duration * 1000);
+  }
+
+  // Spawn stars every 8-15 seconds
+  setInterval(() => {
+    if (Math.random() > 0.5) createFallingStar();
+  }, 8000);
+
+  // ===== BIRTHDAY CONFETTI =====
+  const now = new Date();
+  if (now.getMonth() === 7 && now.getDate() === 28) {
+    // It's her birthday!
+    const confettiContainer = document.getElementById('confetti-container');
+    const colors = ['#f4c2c2', '#e8a0bf', '#d4c5e2', '#c9a96e', '#fff5f5', '#ff6b81', '#ffd700'];
+
+    function launchConfetti() {
+      for (let i = 0; i < 60; i++) {
+        setTimeout(() => {
+          const piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          piece.style.left = Math.random() * 100 + '%';
+          piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+          piece.style.width = (5 + Math.random() * 10) + 'px';
+          piece.style.height = (5 + Math.random() * 10) + 'px';
+          piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+          piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+          confettiContainer.appendChild(piece);
+          setTimeout(() => piece.remove(), 5000);
+        }, i * 50);
+      }
+    }
+
+    // Launch confetti 3 times
+    setTimeout(launchConfetti, 4000);
+    setTimeout(launchConfetti, 7000);
+    setTimeout(launchConfetti, 12000);
+  }
+
+  // ===== MOBILE-ONLY MAGIC =====
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  if (isMobile) {
+    // --- Touch sparkle hearts ---
+    const sparkleEmojis = ['♡', '✦', '✧', '❀', '☽', '♡', '♡'];
+    let lastSparkleTime = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      const now = Date.now();
+      if (now - lastSparkleTime < 400) return; // throttle
+      lastSparkleTime = now;
+
+      const touch = e.touches[0];
+      const sparkle = document.createElement('div');
+      sparkle.className = 'touch-sparkle';
+      sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+      sparkle.style.left = touch.clientX + 'px';
+      sparkle.style.top = touch.clientY + 'px';
+      sparkle.style.color = ['#e8a0bf', '#f4c2c2', '#c9a96e', '#d4c5e2'][Math.floor(Math.random() * 4)];
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1300);
+    }, { passive: true });
+
+    // --- Touch glow follows finger ---
+    const touchGlow = document.getElementById('touch-glow');
+    let glowTimeout;
+
+    document.addEventListener('touchmove', (e) => {
+      if (!touchGlow) return;
+      const touch = e.touches[0];
+      touchGlow.style.left = touch.clientX + 'px';
+      touchGlow.style.top = touch.clientY + 'px';
+      touchGlow.classList.add('active');
+      clearTimeout(glowTimeout);
+      glowTimeout = setTimeout(() => touchGlow.classList.remove('active'), 300);
+    }, { passive: true });
+
+    // --- Shake to hug ---
+    let shakeLastX = 0, shakeLastY = 0, shakeLastZ = 0;
+    let shakeLastTime = 0;
+    const shakeThreshold = 25;
+
+    window.addEventListener('devicemotion', (e) => {
+      const acc = e.accelerationIncludingGravity;
+      if (!acc) return;
+
+      const now = Date.now();
+      if (now - shakeLastTime < 300) return;
+
+      const dx = Math.abs(acc.x - shakeLastX);
+      const dy = Math.abs(acc.y - shakeLastY);
+      const dz = Math.abs(acc.z - shakeLastZ);
+
+      if ((dx > shakeThreshold || dy > shakeThreshold || dz > shakeThreshold) && now - shakeLastTime > 1000) {
+        shakeLastTime = now;
+        // Trigger hug
+        if (typeof showHug === 'function') showHug();
+        if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
+      }
+
+      shakeLastX = acc.x;
+      shakeLastY = acc.y;
+      shakeLastZ = acc.z;
+    });
+
+    // --- Card tap pulse effect ---
+    document.querySelectorAll('.ificould-item, .notice-card, .quran-card, .reminder-card, .promise-item, .thing-card').forEach(card => {
+      card.addEventListener('touchstart', () => {
+        card.classList.add('tap-pulse');
+        setTimeout(() => card.classList.remove('tap-pulse'), 450);
+      }, { passive: true });
+    });
+
+    // --- Shake hint (show once) ---
+    const shakeHint = document.getElementById('shake-hint');
+    if (shakeHint && !localStorage.getItem('shake-hint-shown')) {
+      setTimeout(() => {
+        shakeHint.classList.add('show');
+        localStorage.setItem('shake-hint-shown', 'true');
+        setTimeout(() => shakeHint.classList.remove('show'), 5000);
+      }, 10000);
+    }
+  }
 
 });
