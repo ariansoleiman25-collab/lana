@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For the Girl Who Stayed Soft</title>
+  <meta name="description" content="A quiet place made with love, for the strongest heart I know." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Nunito:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ============ INTRO LOADING SCREEN ============ -->
+  <div class="intro-screen" id="intro-screen">
+    <div class="intro-content">
+      <div class="intro-envelope">
+        <div class="intro-envelope-flap"></div>
+        <div class="intro-letter-pull">♡</div>
+      </div>
+      <p class="intro-text">Opening something special for you…</p>
+    </div>
+  </div>
+
+  <!-- ============ CURSOR GLOW ============ -->
+  <div class="cursor-glow" id="cursor-glow"></div>
+
+  <!-- ============ CLICK HEARTS CONTAINER ============ -->
+  <div class="click-hearts" id="click-hearts"></div>
+
+  <!-- ============ MUSIC TOGGLE ============ -->
+  <button class="music-toggle" id="music-toggle" aria-label="Toggle music">
+    <svg class="music-icon-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2">
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
+    </svg>
+    <svg class="music-icon-on" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
+    </svg>
+  </button>
+
+  <!-- ============ HUG & GOODNIGHT BUTTONS ============ -->
+  <button class="float-btn hug-btn" id="btn-hug" aria-label="Virtual hug">🤗</button>
+  <button class="float-btn night-btn" id="btn-goodnight" aria-label="Goodnight mode">🌙</button>
+
+  <!-- ============ FLOATING WHISPERS ============ -->
+  <div class="whispers-container" id="whispers-container"></div>
+
+  <!-- ============ TIME SURPRISE ============ -->
+  <div class="time-surprise" id="time-surprise"></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav id="main-nav" class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#home" class="nav-brand">♡</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#your-heart">Your Heart</a></li>
+        <li><a href="#your-world">Your World</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#letter">Letter</a></li>
+        <li><a href="#safe-place">Safe Place</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============ CANVAS FOR STARS ============ -->
+  <canvas id="stars-canvas"></canvas>
+
+  <!-- ============ FLOATING PETALS ============ -->
+  <div class="petals-container" id="petals-container"></div>
+
+  <!-- ============ 1. OPENING SCREEN ============ -->
+  <section id="home" class="section opening-section">
+    <div class="opening-overlay"></div>
+    <div class="opening-content reveal">
+      <div class="opening-moon" id="secret-moon" title="✦"></div>
+      <p class="opening-greeting" id="time-greeting"></p>
+      <p class="opening-pretext">I made this for you.</p>
+      <h1 class="opening-title">For the Girl Who Stayed Soft</h1>
+      <p class="opening-subtitle">A quiet place made with love, for the strongest heart I know.</p>
+      <div class="birthday-countdown" id="birthday-countdown"></div>
+      <p class="opening-whisper">A little place for everything my heart wants to say.</p>
+      <button class="btn-primary" id="btn-open" aria-label="Open the website">
+        <span>Open it slowly</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M19 12l-7 7-7-7" />
+        </svg>
+      </button>
+    </div>
+    <div class="visit-counter" id="visit-counter"></div>
+    <div class="scroll-indicator">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+  <!-- ============ 2. HERO — THE GIRL I LOVE ============ -->
+  <section id="hero" class="section hero-section">
+    <div class="container">
+      <div class="hero-layout reveal">
+        <div class="hero-photo-frame">
+          <div class="hero-photo-placeholder" id="hero-photo">
+            <div class="photo-placeholder-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+              <span>Her photo here</span>
+            </div>
+          </div>
+          <div class="hero-photo-glow"></div>
+        </div>
+        <div class="hero-text">
+          <h2 class="section-heading">You are the girl Im proud of.</h2>
+          <p>Not only because you are beautiful,<br />
+            but because your heart is beautiful too.</p>
+          <p>You kept going through things that were not easy.<br />
+            You stayed soft even when life was not always soft with you.</p>
+          <p>That is one of the most beautiful things about you.</p>
+          <p class="hero-birthdate">
+            <span class="birthdate-icon">✦</span>
+            Born on 28 August 2001 — a beautiful soul the world was lucky to receive.
+          </p>
+          <div class="days-counter">
+            <span class="days-number" id="days-count">0</span>
+            <span class="days-label">days of being beautiful</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave Divider -->
+  <div class="wave-divider"><svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0,60 C360,100 720,0 1080,60 C1260,90 1380,70 1440,60 L1440,100 L0,100 Z" fill="var(--white)" />
+    </svg></div>
+
+  <!-- ============ 3. I SEE YOU ============ -->
+  <section id="your-heart" class="section see-section">
+    <div class="container">
+      <div class="see-content reveal">
+        <span class="section-label">Your Heart</span>
+        <h2 class="section-heading">I see you.</h2>
+        <div class="see-lines">
+          <p>Before I talk about how much I love you,<br />
+            I want to say something more important:</p>
+          <p class="see-highlight">I see you.</p>
+          <p>I see your strength.</p>
+          <p>I see the things you carried quietly.</p>
+          <p>I see the tiredness you do not always show.</p>
+          <p>I see how much you kept inside your heart.</p>
+          <p class="see-final">And I want you to know this:<br />
+            <em>What you went through did not make you less beautiful.<br />
+              It made you deeper, stronger, and even more precious.</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave Divider -->
+  <div class="wave-divider wave-dark"><svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0,40 C480,100 960,0 1440,40 L1440,100 L0,100 Z" fill="var(--navy-deep)" />
+    </svg></div>
+
+  <!-- ============ 4. THE STRONGEST SOFT HEART ============ -->
+  <section id="strength" class="section strength-section">
+    <div class="strength-sky"></div>
+    <div class="strength-light"></div>
+    <div class="container">
+      <div class="strength-content reveal">
+        <span class="section-label light">The Strongest Soft Heart</span>
+        <h2 class="section-heading light">You became strong<br />without losing your softness.</h2>
+        <div class="strength-text">
+          <p>Some people go through pain and become cold.</p>
+          <p>But you…</p>
+          <p>you became strong without losing your softness.</p>
+          <p>You still care.<br />
+            You still feel deeply.<br />
+            You still love beautiful things.<br />
+            You still carry light inside you.</p>
+          <p class="strength-admire">And honestly, I admire that more than words can explain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. HER FAITH ============ -->
+  <section id="faith" class="section faith-section">
+    <div class="container">
+      <div class="faith-content reveal">
+        <div class="faith-ornament">﷽</div>
+        <span class="section-label">Her Faith</span>
+        <h2 class="section-heading">Your heart loves Allah.</h2>
+        <div class="faith-text">
+          <p>One of the most beautiful things about you<br />
+            is the way your heart loves Allah.</p>
+          <p>Your faith is not just something you say.<br />
+            It lives inside you.<br />
+            It is the reason you stayed kind when the world was not kind to you.<br />
+            It is the reason your heart still has light.</p>
+          <p>It gives you a quiet kind of beauty,<br />
+            a kind of light that feels peaceful and real.<br />
+            And that light? It does not come from this world.<br />
+            It comes from something much deeper inside you.</p>
+        </div>
+
+        <!-- Quran Ayahs -->
+        <div class="quran-cards">
+          <div class="quran-card">
+            <p class="quran-arabic">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</p>
+            <p class="quran-translation">"Verily, in the remembrance of Allah do hearts find rest."</p>
+            <p class="quran-reference">— Surah Ar-Ra'd 13:28</p>
+          </div>
+          <div class="quran-card">
+            <p class="quran-arabic">إِنَّ مَعَ الْعُسْرِ يُسْرًا</p>
+            <p class="quran-translation">"Indeed, with hardship comes ease."</p>
+            <p class="quran-reference">— Surah Ash-Sharh 94:6</p>
+          </div>
+          <div class="quran-card">
+            <p class="quran-arabic">وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ</p>
+            <p class="quran-translation">"And He is with you wherever you are."</p>
+            <p class="quran-reference">— Surah Al-Hadid 57:4</p>
+          </div>
+          <div class="quran-card">
+            <p class="quran-arabic">فَإِنَّ اللَّهَ لَا يُضِيعُ أَجْرَ الْمُحْسِنِينَ</p>
+            <p class="quran-translation">"Indeed, Allah does not waste the reward of those who do good."</p>
+            <p class="quran-reference">— Surah Hud 11:115</p>
+          </div>
+        </div>
+
+        <div class="faith-text" style="margin-top: 2rem;">
+          <p>When you pray at night,<br />
+            when you whisper duas that no one else hears,<br />
+            when you cry to Allah about things you cannot tell anyone —<br />
+            <em>those are the most beautiful moments of you.</em></p>
+          <p>Your relationship with Allah is the most precious thing you carry.<br />
+            And I want you to know — I see it, I respect it deeply,<br />
+            and it is one of the reasons I admire you most.</p>
+        </div>
+
+        <div class="faith-dua-section">
+          <h3 class="dua-title">A dua for you</h3>
+          <p class="faith-dua">اللهم احفظ قلبها، وارزقها السكينة والراحة والسلام.<br />
+            اللهم اجعل كل ألم مرّ بها سببًا لقربها منك.<br />
+            اللهم لا تحرمها من رحمتك وحبك ونورك.</p>
+          <p class="dua-meaning">O Allah, protect her heart, and grant her tranquility, comfort, and peace.<br />
+            O Allah, make every pain she went through a reason for her closeness to You.<br />
+            O Allah, do not deprive her of Your mercy, Your love, and Your light.</p>
+        </div>
+
+        <div class="faith-glow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave Divider -->
+  <div class="wave-divider"><svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0,50 C240,100 480,0 720,50 C960,100 1200,0 1440,50 L1440,100 L0,100 Z" fill="var(--cream)" />
+    </svg></div>
+
+  <!-- ============ 6. LITTLE THINGS SHE LOVES ============ -->
+  <section id="your-world" class="section things-section">
+    <div class="container">
+      <div class="things-header reveal">
+        <span class="section-label">Your World</span>
+        <h2 class="section-heading">The little things<br />that are so you.</h2>
+      </div>
+      <div class="things-grid reveal">
+
+        <div class="thing-card" data-thing="coffee">
+          <div class="thing-icon"><img src="images/coffee.png" alt="Coffee" /></div>
+          <h3>Coffee</h3>
+          <p>You love coffee, and somehow it feels like you — warm, comforting, and unforgettable.</p>
+        </div>
+
+        <div class="thing-card" data-thing="flowers">
+          <div class="thing-icon"><img src="images/flowers.png" alt="Flowers" /></div>
+          <h3>Flowers</h3>
+          <p>You love flowers, but honestly, you are one too.</p>
+        </div>
+
+        <div class="thing-card" data-thing="stars">
+          <div class="thing-icon"><img src="images/stars.png" alt="Stars" /></div>
+          <h3>Stars</h3>
+          <p>You love stars, maybe because your heart understands quiet light.</p>
+        </div>
+
+        <div class="thing-card" data-thing="moon">
+          <div class="thing-icon"><img src="images/moon.png" alt="Moon" /></div>
+          <h3>Moon</h3>
+          <p>You remind me of the moon — soft, beautiful, and impossible not to look at.</p>
+        </div>
+
+        <div class="thing-card" data-thing="chips">
+          <div class="thing-icon"><img src="images/chips.png" alt="Chips" /></div>
+          <h3>Chips</h3>
+          <p>Even the smallest things you love become special to me.</p>
+        </div>
+
+        <div class="thing-card" data-thing="drawing">
+          <div class="thing-icon"><img src="images/drawing.png" alt="Drawing" /></div>
+          <h3>Drawing</h3>
+          <p>You can draw, and I think that means your heart knows how to turn feelings into beauty.</p>
+        </div>
+
+        <div class="thing-card" data-thing="teacher">
+          <div class="thing-icon"><img src="images/teacher.png" alt="Teacher" /></div>
+          <h3>Teacher</h3>
+          <p>You are a teacher, and that is beautiful — you help others grow even while carrying your own story.</p>
+        </div>
+
+        <div class="thing-card" data-thing="ml">
+          <div class="thing-icon"><img src="images/gaming.png" alt="Mobile Legends" /></div>
+          <h3>Mobile Legends</h3>
+          <p>Even the things you play become meaningful to me because they are part of your world.</p>
+        </div>
+
+        <div class="thing-card" data-thing="thunder">
+          <div class="thing-icon"><img src="images/thunder.png" alt="Thunder" /></div>
+          <h3>Thunder</h3>
+          <p>You used to love thunder, and now it scares you. I do not want to laugh at that. I want to be your calm
+            when the sky gets loud.</p>
+        </div>
+
+        <div class="thing-card" data-thing="sunset">
+          <div class="thing-icon"><img src="images/sunset.png" alt="Sunset" /></div>
+          <h3>Sunsets</h3>
+          <p>You love sunsets, maybe because your heart understands that even endings can be beautiful.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. GALLERY ============ -->
+  <section id="gallery" class="section gallery-section">
+    <div class="container">
+      <div class="gallery-header reveal">
+        <span class="section-label">Gallery</span>
+        <h2 class="section-heading">Moments of you.</h2>
+      </div>
+
+      <!-- Gallery Group A: Soft Beauty -->
+      <div class="gallery-group reveal">
+        <h3 class="gallery-group-title">Soft Beauty</h3>
+        <div class="gallery-grid gallery-grid-a">
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">My favorite view</p>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">Softness in human form</p>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">The face my heart feels safe with</p>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">A beauty words cannot hold</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Group B: Real Moments -->
+      <div class="gallery-group reveal">
+        <h3 class="gallery-group-title">Real Moments</h3>
+        <div class="gallery-grid gallery-grid-b">
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">The little moments I love too</p>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">Not perfect photos. Perfect memories.</p>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">A smile that feels like home</p>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">Every moment with you matters</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Group C: Strength -->
+      <div class="gallery-group reveal">
+        <h3 class="gallery-group-title">Strength</h3>
+        <div class="gallery-grid gallery-grid-c">
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">She has been through storms and still shines</p>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">Strength can look soft too</p>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="m21 15-5-5L5 21" />
+              </svg>
+            </div>
+            <p class="gallery-caption">The strongest soul I know</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. IF YOUR HEART GETS TIRED ============ -->
+  <section id="safe-place" class="section tired-section">
+    <div class="container">
+      <div class="tired-content reveal">
+        <span class="section-label">Safe Place</span>
+        <h2 class="section-heading">If your heart gets tired.</h2>
+        <div class="tired-text">
+          <p>If your heart gets tired,<br />come here for a moment.</p>
+          <p class="tired-breathe">Breathe.</p>
+          <p>You do not have to be strong every second.<br />
+            You do not have to explain every pain perfectly.<br />
+            You do not have to carry everything alone.</p>
+          <div class="tired-loved-lines">
+            <p>You are loved on your happy days.</p>
+            <p>You are loved on your sad days.</p>
+            <p>You are loved when you smile.</p>
+            <p>You are loved when you feel quiet.</p>
+            <p>You are loved when your heart feels heavy.</p>
+          </div>
+          <p class="tired-proud">I am proud of you for still being here.</p>
+        </div>
+        <button class="btn-comfort" id="btn-comfort">
+          <span>Click if you need comfort</span>
+          <span class="btn-comfort-heart">♡</span>
+        </button>
+        <div class="comfort-message" id="comfort-message">
+          <div class="comfort-inner">
+            <p class="comfort-main">You are enough.</p>
+            <p>Even on the days you do not feel like it,<br />
+              you are still precious, still worthy, still loved.</p>
+            <p>Take a deep breath with me…</p>
+            <div class="breathing-circle" id="breathing-circle">
+              <span class="breathing-text" id="breathing-text">Breathe in…</span>
+            </div>
+            <p class="comfort-close-text">You are safe right now. ♡</p>
+            <button class="btn-close-comfort" id="btn-close-comfort">I feel better</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW: I'M RIGHT HERE ============ -->
+  <section id="im-here" class="section imhere-section">
+    <div class="container">
+      <div class="imhere-content reveal">
+        <span class="section-label light">Always</span>
+        <h2 class="section-heading light">I am right here.</h2>
+        <div class="imhere-text">
+          <p>When you are lying in bed at night<br />
+            and the world feels too quiet and too loud at the same time —<br />
+            I want you to imagine me right beside you.</p>
+          <p>Not saying anything.<br />
+            Just being there.<br />
+            Just holding your hand.</p>
+          <p>If I could, I would hold you until every pain in your heart melted away.<br />
+            I would let you rest your head on my chest and listen to my heartbeat<br />
+            until your breathing got slower and your eyes got heavy.</p>
+          <p>I would whisper:<br />
+            <em>"You are safe. I am here. Nothing can touch you right now."</em></p>
+          <p>And when thunder comes,<br />
+            I would hold you tighter.<br />
+            Not because you are weak —<br />
+            but because you deserve to feel protected.</p>
+          <p>When you wake up in the morning,<br />
+            I want to be the first thought that makes you smile.<br />
+            And when you fall asleep at night,<br />
+            I want to be the last feeling of peace in your heart.</p>
+          <p class="imhere-highlight">Even when I am not physically there,<br />
+            my heart is always next to yours.<br />
+            Always.</p>
+        </div>
+        <div class="imhere-buttons">
+          <button class="btn-hug-big" id="btn-hug-section">Hold me ♡</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW: IF I COULD BE THERE ============ -->
+  <section id="if-i-could" class="section ificould-section">
+    <div class="container">
+      <div class="ificould-content reveal">
+        <span class="section-label">If I Could</span>
+        <h2 class="section-heading">If I could be there right now…</h2>
+        <div class="ificould-list">
+          <div class="ificould-item">
+            <span class="ificould-icon">☕</span>
+            <p>I would make your coffee exactly the way you like it and bring it to you in bed before you even open your eyes.</p>
+          </div>
+          <div class="ificould-item">
+            <span class="ificould-icon">🛌</span>
+            <p>I would pull the blanket over you when you fall asleep on the couch, and kiss your forehead without waking you.</p>
+          </div>
+          <div class="ificould-item">
+            <span class="ificould-icon">🤲</span>
+            <p>I would sit beside you silently while you pray, just so you know someone is there waiting for you when you say ameen.</p>
+          </div>
+          <div class="ificould-item">
+            <span class="ificould-icon">🌧️</span>
+            <p>I would hold you during every thunderstorm, not saying a word — just letting you feel my heartbeat against yours until the sky goes quiet again.</p>
+          </div>
+          <div class="ificould-item">
+            <span class="ificould-icon">😢</span>
+            <p>I would wipe your tears with my thumb and say nothing — just look at you with eyes that say "I am not going anywhere."</p>
+          </div>
+          <div class="ificould-item">
+            <span class="ificould-icon">🌙</span>
+            <p>I would stay awake until I hear your breathing get slow and steady, and only then would I let myself close my eyes.</p>
+          </div>
+          <div class="ificould-item">
+            <span class="ificould-icon">🎨</span>
+            <p>I would sit across from you and watch you draw, not saying a word — just admiring the way your hands create beauty from nothing.</p>
+          </div>
+          <div class="ificould-item">
+            <span class="ificould-icon">🚶</span>
+            <p>I would walk with you in silence at sunset, and let the sky say everything our hearts already know.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW: THINGS I NOTICE ============ -->
+  <section id="notice" class="section notice-section">
+    <div class="container">
+      <div class="notice-content reveal">
+        <span class="section-label">I See You</span>
+        <h2 class="section-heading">The small things I notice about you.</h2>
+        <p class="notice-intro">You think nobody pays attention. But I do.</p>
+        <div class="notice-grid">
+          <div class="notice-card">I notice how you always put others before yourself — even when you are the one who needs care the most.</div>
+          <div class="notice-card">I notice how your voice gets softer when you are tired, like your heart is asking for rest but your mouth will not say it.</div>
+          <div class="notice-card">I notice how you look at the moon like it understands something about you that people do not.</div>
+          <div class="notice-card">I notice how you hold your coffee with both hands, like it is something precious — and I think that says everything about how you treat the things you love.</div>
+          <div class="notice-card">I notice how you laugh at small things, and how that laugh is the most honest version of you.</div>
+          <div class="notice-card">I notice how you go quiet before you cry, like you are giving your heart permission first.</div>
+          <div class="notice-card">I notice how you get shy when someone says something nice about you — like you still cannot believe you deserve it.</div>
+          <div class="notice-card">I notice how you still believe in people, even after the ones who hurt you. That is not naivety. That is grace.</div>
+          <div class="notice-card">I notice how you take care of everyone around you so quietly that no one even realizes you are doing it.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW: FOR YOUR WORST DAYS ============ -->
+  <section id="worst-days" class="section worstdays-section">
+    <div class="container">
+      <div class="worstdays-content reveal">
+        <span class="section-label light">Emergency</span>
+        <h2 class="section-heading light">For your worst days.</h2>
+        <p class="worstdays-intro">If you are here because today was really hard, pick what you are feeling:</p>
+        <div class="worstdays-buttons">
+          <button class="worstday-btn" data-day="lonely">I feel lonely</button>
+          <button class="worstday-btn" data-day="worthless">I feel worthless</button>
+          <button class="worstday-btn" data-day="overwhelmed">I feel overwhelmed</button>
+          <button class="worstday-btn" data-day="numb">I feel nothing</button>
+          <button class="worstday-btn" data-day="crying">I cannot stop crying</button>
+          <button class="worstday-btn" data-day="scared">I am scared</button>
+        </div>
+        <div class="worstday-response" id="worstday-response"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DOUBLE TAP HEART ============ -->
+  <div class="doubletap-heart" id="doubletap-heart">♡</div>
+
+  <!-- ============ LOVE NOTE TOAST ============ -->
+  <div class="love-note-toast" id="love-note-toast"></div>
+
+  <!-- ============ 9. WHEN THUNDER COMES ============ -->
+  <section id="thunder" class="section thunder-section">
+    <div class="thunder-bg"></div>
+    <div class="container">
+      <div class="thunder-content reveal">
+        <span class="section-label light">When Thunder Comes</span>
+        <h2 class="section-heading light">I know thunder scares you now.</h2>
+        <div class="thunder-text">
+          <p>So this part is for the moments when the sky gets loud.</p>
+          <p>If thunder comes,<br />
+            I hope this page feels like a hand holding yours.</p>
+          <p class="thunder-breathe">Breathe slowly.<br />
+            You are safe.</p>
+          <p>This sound will pass.<br />
+            And like always,<br />
+            you will pass through the storm too.</p>
+        </div>
+        <button class="btn-scared" id="btn-scared">
+          <span>I'm scared</span>
+          <span class="scared-icon">🤍</span>
+        </button>
+        <div class="scared-message" id="scared-message">
+          <div class="scared-inner">
+            <p class="scared-step" id="scared-step-1">Breathe in… breathe out…</p>
+            <p class="scared-step" id="scared-step-2">You are safe right now.</p>
+            <p class="scared-step" id="scared-step-3">The storm will pass.</p>
+            <p class="scared-step" id="scared-step-4">And you are not alone. ♡</p>
+            <button class="btn-close-scared" id="btn-close-scared">I feel calmer now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW: MOOD CHECK ============ -->
+  <section id="mood" class="section mood-section">
+    <div class="container">
+      <div class="mood-content reveal">
+        <span class="section-label">How Are You</span>
+        <h2 class="section-heading">How does your heart feel right now?</h2>
+        <p class="mood-intro">Pick one. No wrong answers. Just be honest with yourself.</p>
+        <div class="mood-options" id="mood-options">
+          <button class="mood-btn" data-mood="happy" title="Happy">😊</button>
+          <button class="mood-btn" data-mood="sad" title="Sad">😢</button>
+          <button class="mood-btn" data-mood="tired" title="Tired">😴</button>
+          <button class="mood-btn" data-mood="anxious" title="Anxious">😰</button>
+          <button class="mood-btn" data-mood="grateful" title="Grateful">🤲</button>
+          <button class="mood-btn" data-mood="loved" title="Loved">🥰</button>
+          <button class="mood-btn" data-mood="angry" title="Angry">😤</button>
+          <button class="mood-btn" data-mood="peaceful" title="Peaceful">☺️</button>
+        </div>
+        <div class="mood-response" id="mood-response"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW: DAILY AFFIRMATIONS ============ -->
+  <section id="affirmations" class="section affirmations-section">
+    <div class="container">
+      <div class="affirmations-content reveal">
+        <span class="section-label">For Your Soul</span>
+        <h2 class="section-heading">Words your heart needs to hear.</h2>
+        <p class="affirmations-intro">Every time you visit, click the button below.<br />
+          Let these words sit in your heart for a moment.</p>
+        <div class="affirmation-display" id="affirmation-display">
+          <p class="affirmation-text" id="affirmation-text">You are not broken. You are healing. And healing is not weakness — it is the bravest thing a heart can do.</p>
+        </div>
+        <button class="btn-primary" id="btn-next-affirmation">
+          <span>Give me another one</span>
+        </button>
+        <p class="affirmation-hint">Come back every day. There is always something here for you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW: REMINDERS OF STRENGTH ============ -->
+  <section id="your-strength" class="section strength2-section">
+    <div class="container">
+      <div class="strength2-content reveal">
+        <span class="section-label">Your Story</span>
+        <h2 class="section-heading">I know what you carried.</h2>
+        <div class="strength2-text">
+          <p>I know there were nights you cried alone<br />
+            and mornings you woke up and pretended everything was okay.</p>
+          <p>I know there were moments when the world felt too heavy,<br />
+            when you thought you could not take one more step,<br />
+            but you did.</p>
+          <p>You always did.</p>
+          <p>And that is not something small.<br />
+            That is extraordinary.</p>
+          <p class="strength2-highlight">You did not just survive.<br />
+            You kept your heart soft while doing it.</p>
+          <p>Some people lose themselves in pain.<br />
+            But you? You found more of yourself.</p>
+          <p>You became the kind of person who still smiles at flowers,<br />
+            still gets excited about coffee,<br />
+            still looks at the moon and feels something.</p>
+          <p>That is not weakness.<br />
+            <strong>That is the rarest kind of strength.</strong></p>
+        </div>
+
+        <div class="strength2-reminders">
+          <div class="reminder-card">
+            <span class="reminder-number">01</span>
+            <p>You survived every single bad day you ever had. Your record is 100%.</p>
+          </div>
+          <div class="reminder-card">
+            <span class="reminder-number">02</span>
+            <p>The fact that you still care about others after what you went through says everything about your heart.</p>
+          </div>
+          <div class="reminder-card">
+            <span class="reminder-number">03</span>
+            <p>Allah chose you to carry this story because He knew you were strong enough — and beautiful enough — to grow from it.</p>
+          </div>
+          <div class="reminder-card">
+            <span class="reminder-number">04</span>
+            <p>Your tears were never a sign of weakness. They were prayers your heart could not put into words.</p>
+          </div>
+          <div class="reminder-card">
+            <span class="reminder-number">05</span>
+            <p>You do not need to be perfect to be precious. You already are.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW: PROMISES ============ -->
+  <section id="promises" class="section promises-section">
+    <div class="container">
+      <div class="promises-content reveal">
+        <span class="section-label">My Promises</span>
+        <h2 class="section-heading">What I promise you.</h2>
+        <p class="promises-intro">Not just words. These are things I carry in my heart.</p>
+        <div class="promises-list">
+          <div class="promise-item">
+            <div class="promise-icon">🤲</div>
+            <div>
+              <h3>I promise to respect your faith</h3>
+              <p>Your love for Allah is sacred to me. I will never make you feel less for believing deeply. I will stand beside your deen, not in front of it.</p>
+            </div>
+          </div>
+          <div class="promise-item">
+            <div class="promise-icon">🌧️</div>
+            <div>
+              <h3>I promise to be patient with your hard days</h3>
+              <p>When your heart gets heavy and you cannot explain why, I will not ask you to be okay. I will just be there. Quietly. Until you are ready.</p>
+            </div>
+          </div>
+          <div class="promise-item">
+            <div class="promise-icon">🌙</div>
+            <div>
+              <h3>I promise to protect your peace</h3>
+              <p>I know the world has been loud for you. I want to be the quiet. The safe. The place where your heart does not have to perform.</p>
+            </div>
+          </div>
+          <div class="promise-item">
+            <div class="promise-icon">💪</div>
+            <div>
+              <h3>I promise to see your strength</h3>
+              <p>Not just when you are strong and shining. But when you are tired, when you doubt yourself, when you feel small — I will remind you how far you have come.</p>
+            </div>
+          </div>
+          <div class="promise-item">
+            <div class="promise-icon">☕</div>
+            <div>
+              <h3>I promise to love the small things</h3>
+              <p>Your coffee mornings, your quiet drawings, your random laughter at games — I promise to never take those moments for granted. They are my favorite parts of you.</p>
+            </div>
+          </div>
+          <div class="promise-item">
+            <div class="promise-icon">♾️</div>
+            <div>
+              <h3>I promise this place will always be here</h3>
+              <p>Whenever you need to feel seen, whenever you need to remember you are loved, whenever the world forgets to be gentle with you — come back here. This place is yours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10. A LETTER FOR YOU ============ -->
+  <section id="letter" class="section letter-section">
+    <div class="container">
+      <div class="letter-wrapper reveal">
+        <span class="section-label">A Letter</span>
+        <h2 class="section-heading">A letter for you.</h2>
+        <div class="letter-card">
+          <div class="letter-seal">♡</div>
+          <div class="letter-body">
+            <p class="letter-greeting">My sweety,</p>
+            <p>I made this because ordinary words feel too small for what I feel about you.</p>
+            <p>You are not just someone beautiful to me.<br />
+              You are someone I deeply admire.</p>
+            <p>I know life has not always been easy for you.<br />
+              I know you carried things that made your heart tired.</p>
+            <p>But what amazes me most is that you are still soft.<br />
+              You still care.<br />
+              You still believe.<br />
+              You still love beautiful things.</p>
+            <p class="letter-rare">That is rare.</p>
+            <p>I love your heart.<br />
+              I love your faith.<br />
+              I love your strength.<br />
+              I love your gentleness.</p>
+            <p>I love the little things that make you who you are — your coffee, your flowers, your love for stars and
+              the moon, your drawings, your games, your quiet fears, your beautiful soul.</p>
+            <p>You are a teacher.<br />
+              You are an artist.<br />
+              You are strong.<br />
+              You are soft.<br />
+              You are deeply precious.</p>
+            <p>And I hope when you read this website, you do not only feel loved.</p>
+            <p>I hope you feel <em>seen</em>.<br />
+              I hope you feel <em>valued</em>.<br />
+              I hope you feel <em>safe</em>.</p>
+            <p>I hope you remember that your heart matters.</p>
+            <p class="letter-sign">With all my heart,<br />
+              <span class="letter-name">[Arian]</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 11. WHY I CHOOSE YOU ============ -->
+  <section id="choose" class="section choose-section">
+    <div class="container">
+      <div class="choose-content reveal">
+        <span class="section-label">Why You</span>
+        <h2 class="section-heading">Why I choose you.</h2>
+        <div class="choose-list">
+          <div class="choose-item">
+            <span class="choose-heart">♡</span>
+            <p>I choose you because your heart is rare.</p>
+          </div>
+          <div class="choose-item">
+            <span class="choose-heart">♡</span>
+            <p>I choose you because your faith is beautiful.</p>
+          </div>
+          <div class="choose-item">
+            <span class="choose-heart">♡</span>
+            <p>I choose you because you stayed soft after pain.</p>
+          </div>
+          <div class="choose-item">
+            <span class="choose-heart">♡</span>
+            <p>I choose you because your little joys are precious to me.</p>
+          </div>
+          <div class="choose-item">
+            <span class="choose-heart">♡</span>
+            <p>I choose you because I do not only want your easy days — I want to be gentle with your hard ones too.</p>
+          </div>
+          <div class="choose-item">
+            <span class="choose-heart">♡</span>
+            <p>I choose you because loving you feels meaningful.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEW: PRIVATE JOURNAL ============ -->
+  <section id="journal" class="section journal-section">
+    <div class="container">
+      <div class="journal-content reveal">
+        <span class="section-label">Your Space</span>
+        <h2 class="section-heading">Write what your heart feels.</h2>
+        <p class="journal-intro">This is your private space. No one will see this — it is saved only on your device.<br />
+          Write whatever you need to let out. Your words are safe here.</p>
+        <div class="journal-area">
+          <textarea class="journal-textarea" id="journal-textarea" placeholder="Write here... your feelings, your prayers, your thoughts. This is just for you."></textarea>
+          <div class="journal-footer">
+            <span class="journal-saved" id="journal-saved"></span>
+            <button class="btn-journal-clear" id="btn-journal-clear">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 12. FINAL ENDING ============ -->
+  <section id="final" class="section final-section">
+    <div class="container">
+      <div class="final-content reveal">
+        <h2 class="section-heading">Stay here a little longer.</h2>
+        <div class="final-text">
+          <p>Let this place remind you:</p>
+          <p class="final-line">You are loved gently.</p>
+          <p class="final-line">You are loved deeply.</p>
+          <p class="final-line">You are loved with respect.</p>
+          <p class="final-line">You are loved in a way that sees your heart.</p>
+          <p>And if the world ever feels too heavy,<br />
+            come back here.</p>
+          <p class="final-promise">This place will always say:<br />
+            <strong>You are precious.</strong>
+          </p>
+        </div>
+        <div class="final-buttons">
+          <button class="btn-primary" id="btn-read-again" aria-label="Read again">
+            <span>Read it again</span>
+          </button>
+          <button class="btn-secondary" id="btn-one-more" aria-label="One more thing">
+            <span>One more thing…</span>
+          </button>
+        </div>
+        <div class="one-more-message" id="one-more-message">
+          <p class="one-more-text">I love you more than this website can hold. ♡</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Made with ♡ and every piece of my heart.</p>
+    </footer>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

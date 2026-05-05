@@ -1,0 +1,520 @@
+/* ===== RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FFF8F0;--blush:#F4C2C2;--blush-light:#FDE8E8;
+  --brown:#6B4226;--brown-light:#A67B5B;
+  --navy:#1B2A4A;--navy-deep:#0F1B33;
+  --gold:#C9A96E;--gold-light:#E8D5A3;
+  --lavender:#D4C5E2;--lavender-light:#EDE7F3;
+  --rose:#E8A0BF;--white:#FFFCF7;
+  --text:#3D2B1F;--text-light:#6B5B4F;--text-muted:#8B7B6F;
+  --font-heading:'Playfair Display',Georgia,serif;
+  --font-body:'Nunito',system-ui,sans-serif;
+  --font-script:'Dancing Script',cursive;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-body);color:var(--text);background:var(--cream);line-height:1.8;overflow-x:hidden;font-weight:300}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;font-family:var(--font-body)}
+
+/* ===== STARS CANVAS ===== */
+#stars-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.3}
+
+/* ===== PETALS ===== */
+.petals-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:hidden}
+.petal{position:absolute;width:12px;height:12px;background:var(--blush);border-radius:50% 0 50% 50%;opacity:0.4;animation:petalFall linear infinite}
+@keyframes petalFall{
+  0%{transform:translateY(-20px) rotate(0deg) translateX(0);opacity:0}
+  10%{opacity:0.4}
+  90%{opacity:0.4}
+  100%{transform:translateY(100vh) rotate(360deg) translateX(80px);opacity:0}
+}
+
+/* ===== NAV ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;transition:all 0.5s ease}
+.nav.scrolled{background:rgba(255,248,240,0.92);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,0.06)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-family:var(--font-script);font-size:1.5rem;color:var(--rose);opacity:0.8}
+.nav-links{list-style:none;display:flex;gap:2rem}
+.nav-links a{font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);transition:color 0.3s}
+.nav-links a:hover{color:var(--rose)}
+.nav-toggle{display:none;background:none;flex-direction:column;gap:5px;padding:5px}
+.nav-toggle span{width:22px;height:2px;background:var(--text-muted);transition:0.3s}
+@media(max-width:768px){
+  .nav-toggle{display:flex}
+  .nav-links{position:fixed;top:0;right:-100%;width:70%;height:100vh;flex-direction:column;background:var(--cream);padding:5rem 2rem;gap:1.5rem;transition:right 0.4s ease;box-shadow:-10px 0 40px rgba(0,0,0,0.1)}
+  .nav-links.open{right:0}
+}
+
+/* ===== SECTIONS ===== */
+.section{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:6rem 1.5rem;z-index:2}
+.container{max-width:800px;margin:0 auto;width:100%}
+.section-label{display:inline-block;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem;font-weight:500}
+.section-label.light{color:var(--gold-light)}
+.section-heading{font-family:var(--font-heading);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:500;line-height:1.3;margin-bottom:2rem;color:var(--text)}
+.section-heading.light{color:var(--white)}
+
+/* ===== REVEAL ANIMATION ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1.2s ease,transform 1.2s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== 1. OPENING ===== */
+.opening-section{flex-direction:column;text-align:center;background:linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 60%,#2A1F3D 100%);min-height:100vh}
+.opening-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(201,169,110,0.1) 0%,transparent 70%)}
+.opening-content{position:relative;z-index:2}
+.opening-moon{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF8E7,#E8D5A3,#C9A96E);margin:0 auto 2rem;box-shadow:0 0 60px rgba(201,169,110,0.4),0 0 120px rgba(201,169,110,0.2);animation:moonGlow 4s ease-in-out infinite alternate}
+@keyframes moonGlow{0%{box-shadow:0 0 60px rgba(201,169,110,0.3),0 0 120px rgba(201,169,110,0.15)}100%{box-shadow:0 0 80px rgba(201,169,110,0.5),0 0 160px rgba(201,169,110,0.25)}}
+.opening-pretext{font-family:var(--font-script);font-size:1.2rem;color:var(--gold-light);margin-bottom:1rem;opacity:0.8}
+.opening-title{font-family:var(--font-heading);font-size:clamp(2rem,6vw,3.5rem);color:var(--white);font-weight:500;margin-bottom:0.8rem;line-height:1.2}
+.opening-subtitle{font-size:1rem;color:var(--lavender);margin-bottom:0.5rem;font-weight:300}
+.opening-whisper{font-size:0.9rem;color:rgba(255,255,255,0.5);margin-bottom:2.5rem;font-style:italic}
+.scroll-indicator{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);width:24px;height:40px;border:2px solid rgba(255,255,255,0.2);border-radius:12px;display:flex;justify-content:center;padding-top:8px}
+.scroll-dot{width:4px;height:4px;background:var(--gold-light);border-radius:50%;animation:scrollBounce 2s infinite}
+@keyframes scrollBounce{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(12px);opacity:0.3}}
+
+/* ===== BUTTONS ===== */
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2.2rem;background:linear-gradient(135deg,var(--rose),var(--blush));color:var(--white);border-radius:50px;font-size:0.95rem;font-weight:500;letter-spacing:0.03em;transition:all 0.4s ease;box-shadow:0 4px 20px rgba(232,160,191,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,160,191,0.4)}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2.2rem;background:transparent;color:var(--rose);border:1.5px solid var(--blush);border-radius:50px;font-size:0.95rem;font-weight:500;transition:all 0.4s ease}
+.btn-secondary:hover{background:var(--blush-light);transform:translateY(-2px)}
+
+/* ===== 2. HERO ===== */
+.hero-section{background:var(--cream)}
+.hero-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:center}
+@media(max-width:768px){.hero-layout{grid-template-columns:1fr;text-align:center}}
+.hero-photo-frame{position:relative}
+.hero-photo-placeholder{width:100%;aspect-ratio:3/4;max-width:320px;margin:0 auto;border-radius:20px;background:linear-gradient(135deg,var(--blush-light),var(--lavender-light));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;color:var(--text-muted);overflow:hidden;border:3px solid rgba(244,194,194,0.3)}
+.photo-placeholder-icon{display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0.5}
+.photo-placeholder-icon span{font-size:0.8rem}
+.hero-photo-glow{position:absolute;inset:-20px;border-radius:30px;background:radial-gradient(ellipse,rgba(244,194,194,0.3),transparent 70%);z-index:-1}
+.hero-text p{margin-bottom:1rem;font-size:1.05rem;color:var(--text-light)}
+.hero-birthdate{margin-top:1.5rem;padding:1rem 1.5rem;background:linear-gradient(135deg,var(--blush-light),rgba(212,197,226,0.3));border-radius:12px;font-size:0.9rem;color:var(--brown);display:flex;align-items:center;gap:0.5rem}
+.birthdate-icon{color:var(--gold);font-size:1.2rem}
+
+/* ===== 3. I SEE YOU ===== */
+.see-section{background:var(--white)}
+.see-content{text-align:center;max-width:650px;margin:0 auto}
+.see-lines p{margin-bottom:1rem;font-size:1.05rem;color:var(--text-light)}
+.see-highlight{font-family:var(--font-heading);font-size:1.8rem;color:var(--text);margin:1.5rem 0 !important;font-weight:500}
+.see-final{margin-top:1.5rem;padding:1.5rem;background:linear-gradient(135deg,rgba(244,194,194,0.15),rgba(212,197,226,0.15));border-radius:16px;border-left:3px solid var(--blush);font-style:normal}
+.see-final em{color:var(--brown);font-style:italic}
+
+/* ===== 4. STRENGTH ===== */
+.strength-section{background:var(--navy-deep);overflow:hidden}
+.strength-sky{position:absolute;inset:0;background:linear-gradient(180deg,var(--navy-deep),#1a1a2e 50%,var(--navy) 100%)}
+.strength-light{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(201,169,110,0.15),transparent 70%);pointer-events:none}
+.strength-content{position:relative;text-align:center;max-width:650px;margin:0 auto}
+.strength-text p{margin-bottom:1rem;font-size:1.05rem;color:rgba(255,255,255,0.7)}
+.strength-admire{margin-top:1.5rem;font-family:var(--font-heading);font-size:1.3rem;color:var(--gold-light);font-style:italic}
+
+/* ===== 5. FAITH ===== */
+.faith-section{background:var(--white)}
+.faith-content{text-align:center;max-width:650px;margin:0 auto;position:relative}
+.faith-ornament{font-size:2rem;color:var(--gold);margin-bottom:1.5rem;opacity:0.6}
+.faith-text p{margin-bottom:1rem;font-size:1.05rem;color:var(--text-light)}
+.faith-dua{margin-top:1.5rem;padding:1.5rem 2rem;background:linear-gradient(135deg,rgba(201,169,110,0.08),rgba(201,169,110,0.03));border-radius:16px;border:1px solid rgba(201,169,110,0.15);color:var(--brown);font-style:italic}
+.faith-glow{position:absolute;top:-50px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(201,169,110,0.08),transparent 70%);pointer-events:none}
+
+/* ===== 6. THINGS SHE LOVES ===== */
+.things-section{background:var(--cream);padding-top:6rem;padding-bottom:6rem}
+.things-header{text-align:center;margin-bottom:3rem}
+.things-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+.thing-card{padding:2rem 1.5rem;background:var(--white);border-radius:20px;text-align:center;transition:all 0.4s ease;border:1px solid rgba(244,194,194,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.03)}
+.thing-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(232,160,191,0.15);border-color:var(--blush)}
+.thing-icon{width:100px;height:100px;margin:0 auto 1rem;border-radius:50%;overflow:hidden}
+.thing-icon img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease}
+.thing-card:hover .thing-icon img{transform:scale(1.1)}
+.thing-card h3{font-family:var(--font-heading);font-size:1.1rem;margin-bottom:0.6rem;color:var(--text);font-weight:500}
+.thing-card p{font-size:0.9rem;color:var(--text-muted);line-height:1.6}
+
+/* ===== 7. GALLERY ===== */
+.gallery-section{background:var(--white);padding-top:6rem;padding-bottom:6rem}
+.gallery-header{text-align:center;margin-bottom:3rem}
+.gallery-group{margin-bottom:3rem}
+.gallery-group-title{font-family:var(--font-script);font-size:1.4rem;color:var(--rose);margin-bottom:1.5rem;text-align:center}
+.gallery-grid{display:grid;gap:1.2rem}
+.gallery-grid-a{grid-template-columns:repeat(4,1fr)}
+.gallery-grid-b{grid-template-columns:repeat(4,1fr)}
+.gallery-grid-c{grid-template-columns:repeat(3,1fr)}
+@media(max-width:768px){
+  .gallery-grid-a,.gallery-grid-b{grid-template-columns:repeat(2,1fr)}
+  .gallery-grid-c{grid-template-columns:repeat(2,1fr)}
+}
+.gallery-item{position:relative;border-radius:16px;overflow:hidden;transition:transform 0.4s ease}
+.gallery-item:hover{transform:scale(1.03)}
+.gallery-placeholder{aspect-ratio:1;background:linear-gradient(135deg,var(--blush-light),var(--lavender-light));display:flex;align-items:center;justify-content:center;color:var(--text-muted)}
+.gallery-caption{text-align:center;padding:0.8rem 0.5rem;font-size:0.8rem;color:var(--text-muted);font-style:italic}
+
+/* ===== 8. TIRED / SAFE PLACE ===== */
+.tired-section{background:linear-gradient(180deg,var(--cream),var(--blush-light))}
+.tired-content{text-align:center;max-width:650px;margin:0 auto}
+.tired-text p{margin-bottom:1rem;font-size:1.05rem;color:var(--text-light)}
+.tired-breathe{font-family:var(--font-heading);font-size:2rem;color:var(--rose);margin:1.5rem 0 !important}
+.tired-loved-lines{padding:1.5rem;margin:1.5rem 0;border-radius:16px;background:rgba(255,255,255,0.6)}
+.tired-loved-lines p{font-size:1rem;margin-bottom:0.6rem;color:var(--brown)}
+.tired-proud{margin-top:1.5rem;font-family:var(--font-heading);font-size:1.2rem;color:var(--text);font-style:italic}
+.btn-comfort{display:inline-flex;align-items:center;gap:0.5rem;margin-top:2rem;padding:0.9rem 2rem;background:linear-gradient(135deg,var(--blush),var(--lavender));color:var(--white);border-radius:50px;font-size:0.95rem;transition:all 0.4s ease;box-shadow:0 4px 20px rgba(244,194,194,0.3)}
+.btn-comfort:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(244,194,194,0.4)}
+.btn-comfort-heart{animation:heartPulse 1.5s infinite}
+@keyframes heartPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+
+/* Comfort Message Overlay */
+.comfort-message{display:none;position:fixed;inset:0;background:rgba(15,27,51,0.85);backdrop-filter:blur(10px);z-index:200;align-items:center;justify-content:center;padding:2rem}
+.comfort-message.show{display:flex}
+.comfort-inner{text-align:center;max-width:500px;padding:3rem;background:var(--white);border-radius:24px;animation:fadeUp 0.6s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.comfort-main{font-family:var(--font-heading);font-size:1.8rem;color:var(--text);margin-bottom:1rem}
+.comfort-inner p{margin-bottom:0.8rem;color:var(--text-light);font-size:0.95rem}
+.breathing-circle{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--blush-light),var(--lavender-light));margin:1.5rem auto;display:flex;align-items:center;justify-content:center;animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:0.7}50%{transform:scale(1.25);opacity:1}}
+.breathing-text{font-size:0.8rem;color:var(--text-muted);font-weight:500}
+.comfort-close-text{font-style:italic;color:var(--rose) !important;margin-top:1rem}
+.btn-close-comfort,.btn-close-scared{margin-top:1.5rem;padding:0.7rem 1.8rem;background:var(--blush-light);color:var(--brown);border-radius:50px;font-size:0.85rem;transition:all 0.3s}
+.btn-close-comfort:hover,.btn-close-scared:hover{background:var(--blush)}
+
+/* ===== 9. THUNDER ===== */
+.thunder-section{background:var(--navy-deep);overflow:hidden}
+.thunder-bg{position:absolute;inset:0;background:linear-gradient(180deg,#0F1B33,#1a1a2e,#0F1B33)}
+.thunder-content{position:relative;text-align:center;max-width:650px;margin:0 auto}
+.thunder-text p{margin-bottom:1rem;font-size:1.05rem;color:rgba(255,255,255,0.7)}
+.thunder-breathe{font-family:var(--font-heading);font-size:1.4rem;color:var(--gold-light);margin:1.5rem 0 !important}
+.btn-scared{display:inline-flex;align-items:center;gap:0.5rem;margin-top:2rem;padding:0.9rem 2rem;background:rgba(255,255,255,0.1);color:var(--white);border:1.5px solid rgba(255,255,255,0.2);border-radius:50px;font-size:0.95rem;transition:all 0.4s ease;backdrop-filter:blur(10px)}
+.btn-scared:hover{background:rgba(255,255,255,0.15);transform:translateY(-2px)}
+
+/* Scared Message Overlay */
+.scared-message{display:none;position:fixed;inset:0;background:rgba(15,27,51,0.92);backdrop-filter:blur(10px);z-index:200;align-items:center;justify-content:center;padding:2rem}
+.scared-message.show{display:flex}
+.scared-inner{text-align:center;max-width:450px;padding:3rem;animation:fadeUp 0.6s ease}
+.scared-step{font-family:var(--font-heading);font-size:1.3rem;color:var(--white);margin-bottom:1.5rem;opacity:0;transform:translateY(10px);transition:all 0.8s ease}
+.scared-step.show{opacity:1;transform:translateY(0)}
+.btn-close-scared{background:rgba(255,255,255,0.1);color:var(--white);border:1px solid rgba(255,255,255,0.2);opacity:0;transition:all 0.5s ease}
+.btn-close-scared.show{opacity:1}
+
+/* ===== 10. LETTER ===== */
+.letter-section{background:linear-gradient(180deg,var(--cream),var(--white))}
+.letter-wrapper{text-align:center;max-width:700px;margin:0 auto}
+.letter-card{margin-top:2rem;padding:3rem 2.5rem;background:var(--white);border-radius:24px;box-shadow:0 10px 60px rgba(0,0,0,0.06);border:1px solid rgba(244,194,194,0.2);text-align:left;position:relative;overflow:hidden}
+.letter-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blush),var(--rose),var(--lavender))}
+.letter-seal{position:absolute;top:1.5rem;right:2rem;font-size:2rem;color:var(--blush);opacity:0.3}
+.letter-body p{margin-bottom:1rem;font-size:1rem;color:var(--text-light);line-height:1.9}
+.letter-greeting{font-family:var(--font-script);font-size:1.6rem;color:var(--rose);margin-bottom:1.5rem !important}
+.letter-rare{font-family:var(--font-heading);font-size:1.3rem;color:var(--text);font-style:italic}
+.letter-body em{color:var(--rose);font-style:italic}
+.letter-sign{margin-top:2rem;font-family:var(--font-script);font-size:1.2rem;color:var(--text);line-height:2}
+.letter-name{color:var(--rose);font-size:1.4rem}
+
+/* ===== 11. WHY I CHOOSE YOU ===== */
+.choose-section{background:var(--cream)}
+.choose-content{text-align:center;max-width:650px;margin:0 auto}
+.choose-list{text-align:left;max-width:550px;margin:0 auto}
+.choose-item{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem 0;border-bottom:1px solid rgba(244,194,194,0.2);opacity:0;transform:translateX(-20px);transition:all 0.6s ease}
+.choose-item.visible{opacity:1;transform:translateX(0)}
+.choose-heart{color:var(--rose);font-size:1.2rem;flex-shrink:0;margin-top:0.1rem}
+.choose-item p{font-size:1rem;color:var(--text-light);line-height:1.7}
+
+/* ===== 12. FINAL ===== */
+.final-section{background:linear-gradient(180deg,var(--white),var(--blush-light),var(--cream));padding-bottom:2rem}
+.final-content{text-align:center;max-width:650px;margin:0 auto}
+.final-text p{margin-bottom:1rem;font-size:1.05rem;color:var(--text-light)}
+.final-line{font-family:var(--font-heading);font-size:1.15rem;color:var(--text) !important;font-weight:400}
+.final-promise{margin-top:1.5rem;font-size:1.2rem}
+.final-promise strong{color:var(--rose);font-family:var(--font-heading);font-size:1.4rem}
+.final-buttons{display:flex;gap:1rem;justify-content:center;margin-top:2.5rem;flex-wrap:wrap}
+.one-more-message{margin-top:2rem;overflow:hidden;max-height:0;opacity:0;transition:all 0.8s ease}
+.one-more-message.show{max-height:200px;opacity:1}
+.one-more-text{font-family:var(--font-heading);font-size:1.6rem;color:var(--rose);padding:1.5rem;animation:fadeUp 0.8s ease}
+
+/* Footer */
+.footer{text-align:center;padding:3rem 1rem 2rem;font-size:0.8rem;color:var(--text-muted)}
+
+/* ===== QURAN CARDS ===== */
+.quran-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem}
+@media(max-width:600px){.quran-cards{grid-template-columns:1fr}}
+.quran-card{padding:1.5rem;background:linear-gradient(135deg,rgba(201,169,110,0.08),rgba(201,169,110,0.03));border-radius:16px;border:1px solid rgba(201,169,110,0.15);text-align:center;transition:all 0.4s ease}
+.quran-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(201,169,110,0.12)}
+.quran-arabic{font-size:1.3rem;color:var(--gold);margin-bottom:0.6rem;line-height:2;direction:rtl}
+.quran-translation{font-size:0.9rem;color:var(--text-light);font-style:italic;margin-bottom:0.4rem}
+.quran-reference{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em}
+.faith-dua-section{margin-top:2.5rem;padding:2rem;background:linear-gradient(135deg,rgba(201,169,110,0.06),rgba(201,169,110,0.02));border-radius:20px;border:1px solid rgba(201,169,110,0.12)}
+.dua-title{font-family:var(--font-script);font-size:1.3rem;color:var(--gold);margin-bottom:1rem;text-align:center}
+.dua-meaning{margin-top:1rem;font-size:0.9rem;color:var(--text-muted);font-style:italic;line-height:1.8}
+
+/* ===== AFFIRMATIONS ===== */
+.affirmations-section{background:linear-gradient(180deg,var(--navy-deep),#1a1a2e)}
+.affirmations-content{text-align:center;max-width:700px;margin:0 auto}
+.affirmations-content .section-heading{color:var(--white)}
+.affirmations-intro{color:rgba(255,255,255,0.6);font-size:0.95rem;margin-bottom:2rem}
+.affirmation-display{padding:2.5rem 2rem;margin-bottom:2rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;min-height:120px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.affirmation-text{font-family:var(--font-heading);font-size:1.2rem;color:var(--gold-light);line-height:1.8;font-weight:400;transition:opacity 0.5s ease}
+.affirmation-text.fade{opacity:0}
+.affirmation-hint{margin-top:1.5rem;font-size:0.8rem;color:rgba(255,255,255,0.3);font-style:italic}
+
+/* ===== STRENGTH REMINDERS ===== */
+.strength2-section{background:var(--cream)}
+.strength2-content{max-width:700px;margin:0 auto}
+.strength2-text{text-align:center;margin-bottom:3rem}
+.strength2-text p{margin-bottom:1rem;font-size:1.05rem;color:var(--text-light)}
+.strength2-highlight{font-family:var(--font-heading);font-size:1.3rem;color:var(--text);margin:1.5rem 0 !important;padding:1.5rem;background:linear-gradient(135deg,rgba(244,194,194,0.15),rgba(212,197,226,0.15));border-radius:16px;border-left:3px solid var(--rose)}
+.strength2-text strong{color:var(--rose)}
+.strength2-reminders{display:flex;flex-direction:column;gap:1rem}
+.reminder-card{display:flex;align-items:flex-start;gap:1.2rem;padding:1.5rem;background:var(--white);border-radius:16px;border:1px solid rgba(244,194,194,0.15);transition:all 0.4s ease;box-shadow:0 4px 15px rgba(0,0,0,0.03)}
+.reminder-card:hover{transform:translateX(8px);border-color:var(--blush);box-shadow:0 8px 25px rgba(232,160,191,0.1)}
+.reminder-number{font-family:var(--font-heading);font-size:1.5rem;color:var(--blush);font-weight:600;flex-shrink:0;opacity:0.6}
+.reminder-card p{font-size:0.95rem;color:var(--text-light);line-height:1.7}
+
+/* ===== PROMISES ===== */
+.promises-section{background:var(--white)}
+.promises-content{max-width:750px;margin:0 auto;text-align:center}
+.promises-intro{color:var(--text-muted);font-size:0.95rem;margin-bottom:2.5rem;font-style:italic}
+.promises-list{display:flex;flex-direction:column;gap:1.5rem;text-align:left}
+.promise-item{display:flex;align-items:flex-start;gap:1.2rem;padding:1.8rem;background:linear-gradient(135deg,var(--cream),rgba(244,194,194,0.08));border-radius:20px;transition:all 0.4s ease;border:1px solid transparent}
+.promise-item:hover{border-color:var(--blush);transform:translateY(-3px);box-shadow:0 10px 30px rgba(232,160,191,0.1)}
+.promise-icon{font-size:1.8rem;flex-shrink:0;margin-top:0.2rem}
+.promise-item h3{font-family:var(--font-heading);font-size:1.05rem;color:var(--text);margin-bottom:0.4rem;font-weight:500}
+.promise-item p{font-size:0.9rem;color:var(--text-muted);line-height:1.7}
+
+/* ===== INTRO LOADING SCREEN ===== */
+.intro-screen{position:fixed;inset:0;z-index:9999;background:var(--navy-deep);display:flex;align-items:center;justify-content:center;transition:opacity 0.8s ease,visibility 0.8s ease}
+.intro-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.intro-content{text-align:center}
+.intro-envelope{width:100px;height:70px;background:var(--blush);border-radius:0 0 8px 8px;margin:0 auto 2rem;position:relative;box-shadow:0 10px 40px rgba(232,160,191,0.3)}
+.intro-envelope-flap{position:absolute;top:0;left:0;right:0;height:0;border-left:50px solid transparent;border-right:50px solid transparent;border-top:40px solid var(--rose);transform-origin:top;animation:flapOpen 1.5s ease 0.5s forwards}
+.intro-letter-pull{position:absolute;top:10px;left:50%;transform:translateX(-50%) translateY(0);font-size:1.8rem;color:var(--white);animation:letterRise 1.5s ease 1s forwards;opacity:0}
+@keyframes flapOpen{to{transform:rotateX(180deg)}}
+@keyframes letterRise{0%{opacity:0;transform:translateX(-50%) translateY(0)}100%{opacity:1;transform:translateX(-50%) translateY(-50px)}}
+.intro-text{font-family:var(--font-script);font-size:1.2rem;color:var(--gold-light);opacity:0;animation:fadeIn 1s ease 1.5s forwards}
+@keyframes fadeIn{to{opacity:1}}
+
+/* ===== CURSOR GLOW ===== */
+.cursor-glow{position:fixed;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,191,0.08),transparent 70%);pointer-events:none;z-index:3;transform:translate(-50%,-50%);transition:left 0.3s ease,top 0.3s ease;display:none}
+@media(hover:hover){.cursor-glow{display:block}}
+
+/* ===== CLICK HEARTS ===== */
+.click-hearts{position:fixed;inset:0;pointer-events:none;z-index:150;overflow:hidden}
+.click-heart{position:absolute;font-size:1.2rem;color:var(--rose);animation:heartFloat 2s ease forwards;pointer-events:none;opacity:0}
+@keyframes heartFloat{
+  0%{opacity:1;transform:translateY(0) scale(0.5) rotate(0deg)}
+  50%{opacity:0.8;transform:translateY(-60px) scale(1.2) rotate(-15deg)}
+  100%{opacity:0;transform:translateY(-120px) scale(0.3) rotate(15deg)}
+}
+
+/* ===== MUSIC TOGGLE ===== */
+.music-toggle{position:fixed;bottom:2rem;right:2rem;z-index:100;width:48px;height:48px;border-radius:50%;background:var(--white);color:var(--rose);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:all 0.3s ease;border:1.5px solid var(--blush)}
+.music-toggle:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(232,160,191,0.3)}
+.music-toggle.playing{background:var(--rose);color:var(--white);border-color:var(--rose);animation:musicPulse 1.5s ease infinite}
+@keyframes musicPulse{0%,100%{box-shadow:0 4px 20px rgba(232,160,191,0.3)}50%{box-shadow:0 4px 30px rgba(232,160,191,0.6)}}
+
+/* ===== WAVE DIVIDERS ===== */
+.wave-divider{position:relative;z-index:3;margin-top:-2px;margin-bottom:-2px;line-height:0}
+.wave-divider svg{width:100%;height:60px;display:block}
+.wave-dark{background:transparent}
+
+/* ===== DAYS COUNTER ===== */
+.days-counter{margin-top:1rem;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0.2rem}
+.days-number{font-family:var(--font-heading);font-size:2.5rem;color:var(--rose);font-weight:600;line-height:1;background:linear-gradient(135deg,var(--rose),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.days-label{font-size:0.85rem;color:var(--text-muted);font-style:italic;letter-spacing:0.05em}
+
+/* ===== TYPEWRITER ===== */
+.typewriter{overflow:hidden;border-right:2px solid var(--rose);white-space:nowrap;animation:typing 3s steps(40,end) forwards,blinkCaret 0.75s step-end infinite}
+@keyframes typing{from{width:0}to{width:100%}}
+@keyframes blinkCaret{from,to{border-color:transparent}50%{border-color:var(--rose)}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .section{padding:4rem 1.2rem;min-height:auto}
+  .letter-card{padding:2rem 1.5rem}
+  .things-grid{grid-template-columns:1fr 1fr;gap:1rem}
+  .opening-moon{width:80px;height:80px}
+  .days-number{font-size:2rem}
+  .music-toggle{bottom:1rem;right:1rem;width:42px;height:42px}
+  .hero-layout{grid-template-columns:1fr;text-align:center;gap:2rem}
+  .hero-photo-placeholder{max-width:280px;aspect-ratio:3/4}
+  .gallery-grid-a,.gallery-grid-b{grid-template-columns:1fr 1fr !important}
+  .gallery-grid-c{grid-template-columns:1fr 1fr !important}
+  .quran-cards{grid-template-columns:1fr}
+  .quran-arabic{font-size:1.1rem}
+  .faith-dua-section{padding:1.5rem}
+  .promises-list{gap:1rem}
+  .promise-item{padding:1.2rem;flex-direction:column;align-items:center;text-align:center;gap:0.8rem}
+  .promise-icon{font-size:2rem}
+  .strength2-reminders{gap:0.8rem}
+  .reminder-card{padding:1.2rem;flex-direction:column;align-items:center;text-align:center}
+  .reminder-number{font-size:1.2rem}
+  .affirmation-display{padding:1.8rem 1.2rem;min-height:100px}
+  .affirmation-text{font-size:1rem}
+  .journal-area{padding:1.2rem}
+  .journal-textarea{min-height:150px;font-size:0.95rem}
+  .opening-title{font-size:clamp(1.6rem,7vw,2.5rem)}
+  .section-heading{font-size:clamp(1.5rem,5vw,2.2rem)}
+  .choose-item{padding:1rem 0}
+  .final-buttons{flex-direction:column;align-items:center;gap:0.8rem}
+  .see-highlight{font-size:1.4rem}
+  .thing-icon{width:80px;height:80px}
+  .birthday-countdown{font-size:0.8rem;padding:0.4rem 1rem}
+  .opening-greeting{font-size:1.1rem}
+  .nav-brand{font-size:1.2rem}
+  /* Make edit hints always visible on mobile (no hover) */
+  .edit-hint{opacity:0.7}
+  .remove-img-btn{opacity:0.7}
+  .cursor-glow{display:none !important}
+  /* Visit counter */
+  .visit-counter{font-size:0.75rem}
+  /* Mood check */
+  .mood-options{gap:0.8rem}
+  .mood-btn{width:50px;height:50px;font-size:1.5rem}
+}
+
+/* ===== IMAGE UPLOAD SYSTEM ===== */
+.uploaded-img{width:100%;height:100%;object-fit:cover;border-radius:inherit;position:absolute;top:0;left:0;z-index:1}
+.gallery-item{cursor:pointer;position:relative;aspect-ratio:1;overflow:hidden}
+.hero-photo-placeholder{cursor:pointer;position:relative}
+
+.edit-hint{position:absolute;bottom:0;left:0;right:0;padding:0.6rem;background:linear-gradient(transparent,rgba(0,0,0,0.5));color:white;text-align:center;font-size:0.75rem;opacity:0;transition:opacity 0.3s ease;z-index:5;border-radius:0 0 16px 16px;pointer-events:none}
+.gallery-item:hover .edit-hint,.hero-photo-placeholder:hover .edit-hint{opacity:1}
+.edit-hint span{background:rgba(232,160,191,0.7);padding:0.2rem 0.8rem;border-radius:20px;font-size:0.7rem;letter-spacing:0.05em}
+
+.remove-img-btn{position:absolute;top:8px;right:8px;z-index:10;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.5);color:white;font-size:1.1rem;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;border:none;cursor:pointer;line-height:1}
+.gallery-item:hover .remove-img-btn,.hero-photo-placeholder:hover .remove-img-btn{opacity:1}
+.remove-img-btn:hover{background:rgba(220,50,50,0.8)}
+
+/* ===== TIME GREETING ===== */
+.opening-greeting{font-family:var(--font-script);font-size:1.4rem;color:var(--gold-light);margin-bottom:0.5rem;opacity:0.9;min-height:1.4em}
+
+/* ===== BIRTHDAY COUNTDOWN ===== */
+.birthday-countdown{margin:0.8rem 0;padding:0.5rem 1.2rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:30px;display:inline-block;font-size:0.85rem;color:var(--lavender);letter-spacing:0.03em}
+.birthday-countdown .bday-number{font-family:var(--font-heading);font-size:1.1rem;color:var(--gold-light);font-weight:500}
+
+/* ===== SECRET MOON ===== */
+.opening-moon{cursor:pointer;transition:all 0.3s ease;will-change:translate}
+.opening-moon.glow-burst{box-shadow:0 0 100px rgba(232,160,191,0.8),0 0 200px rgba(201,169,110,0.5) !important;transform:scale(1.15) !important}
+.secret-overlay{position:fixed;inset:0;z-index:300;background:rgba(15,27,51,0.92);backdrop-filter:blur(15px);display:flex;align-items:center;justify-content:center;padding:2rem;animation:fadeUp 0.6s ease}
+.secret-inner{text-align:center;max-width:500px;padding:3rem}
+.secret-inner .secret-heart{font-size:3rem;margin-bottom:1rem;animation:heartPulse 1.5s infinite}
+.secret-inner p{font-family:var(--font-heading);font-size:1.3rem;color:var(--gold-light);line-height:1.8;margin-bottom:1rem}
+.secret-inner .secret-small{font-family:var(--font-body);font-size:0.85rem;color:rgba(255,255,255,0.4);font-style:italic}
+.secret-close{margin-top:1.5rem;padding:0.7rem 1.8rem;background:rgba(255,255,255,0.1);color:var(--white);border:1px solid rgba(255,255,255,0.2);border-radius:50px;font-size:0.85rem;cursor:pointer;transition:all 0.3s}
+.secret-close:hover{background:rgba(255,255,255,0.15)}
+
+/* ===== JOURNAL ===== */
+.journal-section{background:linear-gradient(180deg,var(--cream),var(--blush-light))}
+.journal-content{max-width:650px;margin:0 auto;text-align:center}
+.journal-intro{color:var(--text-muted);font-size:0.95rem;margin-bottom:2rem}
+.journal-area{background:var(--white);border-radius:20px;padding:2rem;box-shadow:0 10px 40px rgba(0,0,0,0.05);border:1px solid rgba(244,194,194,0.2)}
+.journal-textarea{width:100%;min-height:200px;border:none;outline:none;resize:vertical;font-family:var(--font-body);font-size:1rem;color:var(--text);line-height:1.8;background:transparent;padding:0.5rem}
+.journal-textarea::placeholder{color:var(--text-muted);opacity:0.5;font-style:italic}
+.journal-footer{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(244,194,194,0.15)}
+.journal-saved{font-size:0.8rem;color:var(--rose);font-style:italic;opacity:0;transition:opacity 0.5s ease}
+.journal-saved.show{opacity:1}
+.btn-journal-clear{padding:0.4rem 1rem;background:transparent;color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);border-radius:20px;font-size:0.75rem;transition:all 0.3s}
+.btn-journal-clear:hover{background:var(--blush-light);border-color:var(--blush);color:var(--brown)}
+
+/* ===== VISIT COUNTER ===== */
+.visit-counter{position:absolute;bottom:4.5rem;left:50%;transform:translateX(-50%);font-size:0.8rem;color:rgba(255,255,255,0.3);font-style:italic;letter-spacing:0.03em}
+
+/* ===== MOOD CHECK ===== */
+.mood-section{background:var(--white)}
+.mood-content{max-width:650px;margin:0 auto;text-align:center}
+.mood-intro{color:var(--text-muted);font-size:0.95rem;margin-bottom:2rem}
+.mood-options{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.mood-btn{width:60px;height:60px;border-radius:50%;background:var(--cream);border:2px solid transparent;font-size:1.8rem;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;cursor:pointer}
+.mood-btn:hover{transform:scale(1.15);border-color:var(--blush);box-shadow:0 6px 20px rgba(232,160,191,0.2)}
+.mood-btn.selected{border-color:var(--rose);background:var(--blush-light);transform:scale(1.2);box-shadow:0 8px 25px rgba(232,160,191,0.3)}
+.mood-response{padding:2rem;background:linear-gradient(135deg,rgba(244,194,194,0.1),rgba(212,197,226,0.1));border-radius:20px;min-height:0;max-height:0;overflow:hidden;opacity:0;transition:all 0.6s ease}
+.mood-response.show{min-height:100px;max-height:400px;opacity:1;margin-top:1rem}
+.mood-response p{font-family:var(--font-heading);font-size:1.1rem;color:var(--text);line-height:1.8;margin-bottom:0.5rem}
+.mood-response .mood-dua{font-size:0.9rem;color:var(--gold);margin-top:1rem;font-family:var(--font-body);font-style:italic}
+
+/* ===== FLOATING BUTTONS ===== */
+.float-btn{position:fixed;z-index:100;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1.5px solid var(--blush);background:var(--white);box-shadow:0 4px 15px rgba(0,0,0,0.08);transition:all 0.3s ease;cursor:pointer}
+.float-btn:hover{transform:scale(1.1)}
+.hug-btn{bottom:2rem;left:2rem}
+.night-btn{bottom:5rem;left:2rem}
+@media(max-width:768px){.hug-btn{bottom:1rem;left:1rem;width:40px;height:40px}.night-btn{bottom:4rem;left:1rem;width:40px;height:40px}}
+
+/* ===== HUG OVERLAY ===== */
+.hug-overlay{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;animation:hugFadeIn 0.8s ease}
+.hug-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(244,194,194,0.95) 0%,rgba(232,160,191,0.9) 40%,rgba(15,27,51,0.85) 100%)}
+.hug-content{position:relative;text-align:center;padding:2rem;max-width:400px}
+.hug-heartbeat{font-size:4rem;animation:heartbeat 1s ease-in-out infinite}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+.hug-content p{font-family:var(--font-heading);color:var(--white);font-size:1.2rem;line-height:1.8;margin-bottom:1rem;text-shadow:0 2px 10px rgba(0,0,0,0.2)}
+.hug-whisper{font-family:var(--font-script) !important;font-size:1.4rem !important;color:var(--gold-light) !important;opacity:0;animation:hugWhisperIn 1s ease 1s forwards}
+@keyframes hugWhisperIn{to{opacity:1}}
+@keyframes hugFadeIn{from{opacity:0}to{opacity:1}}
+.hug-close{margin-top:1.5rem;padding:0.7rem 1.8rem;background:rgba(255,255,255,0.15);color:var(--white);border:1px solid rgba(255,255,255,0.2);border-radius:50px;font-size:0.85rem;cursor:pointer;backdrop-filter:blur(5px)}
+
+/* ===== GOODNIGHT OVERLAY ===== */
+.goodnight-overlay{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;background:rgba(5,10,25,0.97);animation:hugFadeIn 1.5s ease}
+.goodnight-content{text-align:center;padding:2rem;max-width:450px}
+.goodnight-moon{font-size:4rem;animation:moonFloat 3s ease-in-out infinite}
+@keyframes moonFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.goodnight-content p{font-family:var(--font-heading);color:rgba(255,255,255,0.7);font-size:1.1rem;line-height:1.9;margin-bottom:0.8rem}
+.goodnight-main{font-size:1.6rem !important;color:var(--gold-light) !important;margin-bottom:1.5rem !important}
+.goodnight-dua{font-size:0.95rem !important;color:var(--gold) !important;font-style:italic;direction:rtl;margin-top:1.5rem !important}
+.goodnight-close{margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1);border-radius:50px;font-size:0.85rem;cursor:pointer}
+
+/* ===== FLOATING WHISPERS ===== */
+.whispers-container{position:fixed;inset:0;pointer-events:none;z-index:4;overflow:hidden}
+.whisper{position:fixed;font-family:var(--font-script);color:var(--rose);opacity:0;font-size:0.9rem;pointer-events:none;animation:whisperFloat 8s ease forwards;white-space:nowrap}
+@keyframes whisperFloat{0%{opacity:0;transform:translateY(0)}15%{opacity:0.35}50%{opacity:0.25}100%{opacity:0;transform:translateY(-80px)}}
+
+/* ===== TIME SURPRISE ===== */
+.time-surprise{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:350;pointer-events:none;opacity:0;transition:opacity 0.8s ease}
+.time-surprise.show{opacity:1;pointer-events:auto}
+.time-surprise-inner{text-align:center;padding:2.5rem;background:rgba(15,27,51,0.92);backdrop-filter:blur(15px);border-radius:24px;border:1px solid rgba(201,169,110,0.2);max-width:400px;animation:fadeUp 0.6s ease}
+.time-surprise-inner p{font-family:var(--font-heading);color:var(--gold-light);font-size:1.1rem;line-height:1.8;margin-bottom:0.8rem}
+.time-surprise-inner .surprise-small{font-family:var(--font-body);font-size:0.8rem;color:rgba(255,255,255,0.3);font-style:italic}
+.time-surprise-close{margin-top:1rem;padding:0.5rem 1.5rem;background:rgba(255,255,255,0.1);color:var(--white);border:1px solid rgba(255,255,255,0.15);border-radius:50px;font-size:0.8rem;cursor:pointer}
+
+/* ===== I'M RIGHT HERE ===== */
+.imhere-section{background:linear-gradient(180deg,#1a1a2e,var(--navy-deep),#0d1526);overflow:hidden}
+.imhere-content{text-align:center;max-width:650px;margin:0 auto}
+.imhere-text p{margin-bottom:1.2rem;font-size:1.05rem;color:rgba(255,255,255,0.65);line-height:1.9}
+.imhere-text em{color:var(--gold-light);font-style:italic}
+.imhere-highlight{font-family:var(--font-heading) !important;font-size:1.3rem !important;color:var(--rose) !important;margin-top:1.5rem !important;padding:1.5rem;background:rgba(232,160,191,0.08);border-radius:16px;border:1px solid rgba(232,160,191,0.15)}
+.imhere-buttons{margin-top:2rem}
+.btn-hug-big{padding:1rem 2.5rem;background:linear-gradient(135deg,var(--rose),var(--blush));color:var(--white);border-radius:50px;font-size:1rem;font-weight:500;border:none;cursor:pointer;transition:all 0.4s ease;box-shadow:0 6px 25px rgba(232,160,191,0.3)}
+.btn-hug-big:hover{transform:translateY(-3px);box-shadow:0 10px 35px rgba(232,160,191,0.5)}
+
+/* ===== IF I COULD ===== */
+.ificould-section{background:var(--cream)}
+.ificould-content{max-width:700px;margin:0 auto}
+.ificould-list{display:flex;flex-direction:column;gap:1.2rem;margin-top:1rem}
+.ificould-item{display:flex;align-items:flex-start;gap:1.2rem;padding:1.5rem;background:var(--white);border-radius:16px;border:1px solid rgba(244,194,194,0.1);transition:all 0.4s ease;box-shadow:0 4px 15px rgba(0,0,0,0.02)}
+.ificould-item:hover{transform:translateX(6px);border-color:var(--blush);box-shadow:0 8px 25px rgba(232,160,191,0.08)}
+.ificould-icon{font-size:1.5rem;flex-shrink:0;margin-top:0.1rem}
+.ificould-item p{font-size:0.95rem;color:var(--text-light);line-height:1.7}
+
+/* ===== THINGS I NOTICE ===== */
+.notice-section{background:var(--white)}
+.notice-content{max-width:800px;margin:0 auto;text-align:center}
+.notice-intro{color:var(--text-muted);font-size:1rem;margin-bottom:2rem;font-style:italic}
+.notice-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+@media(max-width:768px){.notice-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.notice-grid{grid-template-columns:1fr}}
+.notice-card{padding:1.5rem;background:linear-gradient(135deg,var(--cream),rgba(212,197,226,0.08));border-radius:16px;font-size:0.9rem;color:var(--text-light);line-height:1.7;text-align:left;border:1px solid rgba(244,194,194,0.1);transition:all 0.4s ease}
+.notice-card:hover{transform:translateY(-4px);border-color:var(--blush);box-shadow:0 10px 30px rgba(232,160,191,0.1)}
+
+/* ===== WORST DAYS ===== */
+.worstdays-section{background:linear-gradient(180deg,#1a1a2e,#0d1526)}
+.worstdays-content{max-width:650px;margin:0 auto;text-align:center}
+.worstdays-intro{color:rgba(255,255,255,0.5);font-size:0.95rem;margin-bottom:2rem}
+.worstdays-buttons{display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center;margin-bottom:2rem}
+.worstday-btn{padding:0.7rem 1.3rem;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.1);border-radius:50px;font-size:0.85rem;cursor:pointer;transition:all 0.3s}
+.worstday-btn:hover,.worstday-btn.selected{background:rgba(232,160,191,0.15);border-color:var(--rose);color:var(--rose)}
+.worstday-response{padding:2rem;background:rgba(255,255,255,0.04);border-radius:20px;border:1px solid rgba(255,255,255,0.06);min-height:0;max-height:0;overflow:hidden;opacity:0;transition:all 0.6s ease}
+.worstday-response.show{min-height:120px;max-height:500px;opacity:1}
+.worstday-response p{font-family:var(--font-heading);color:rgba(255,255,255,0.8);font-size:1.05rem;line-height:1.9;margin-bottom:0.8rem}
+.worstday-response .wd-dua{font-size:0.9rem;color:var(--gold);font-style:italic;margin-top:1rem}
+
+/* ===== DOUBLE TAP HEART ===== */
+.doubletap-heart{position:fixed;z-index:500;font-size:5rem;color:var(--rose);pointer-events:none;opacity:0;transform:scale(0);transition:none}
+.doubletap-heart.pop{animation:doubleTapPop 0.8s ease forwards}
+@keyframes doubleTapPop{0%{opacity:1;transform:scale(0)}30%{transform:scale(1.2)}50%{transform:scale(1)}100%{opacity:0;transform:scale(1.3) translateY(-30px)}}
+
+/* ===== LOVE NOTE TOAST ===== */
+.love-note-toast{position:fixed;bottom:5rem;right:2rem;z-index:200;max-width:280px;padding:1rem 1.4rem;background:var(--white);border-radius:16px;border:1px solid var(--blush);box-shadow:0 10px 35px rgba(232,160,191,0.2);font-size:0.85rem;color:var(--text-light);line-height:1.6;opacity:0;transform:translateY(20px);transition:all 0.5s ease;pointer-events:none}
+.love-note-toast.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.love-note-toast::before{content:'💌';position:absolute;top:-12px;left:16px;font-size:1.2rem}
+@media(max-width:768px){.love-note-toast{right:1rem;left:1rem;max-width:none;bottom:4rem}}
