@@ -581,6 +581,84 @@ button{cursor:pointer;border:none;font-family:var(--font-body)}
 .wish-popup input{width:100%;padding:0.6rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:var(--white);font-size:0.9rem;margin:0.5rem 0;outline:none}
 .wish-popup button{padding:0.5rem 1.5rem;background:rgba(201,169,110,0.2);color:var(--gold);border:1px solid var(--gold);border-radius:50px;font-size:0.8rem;cursor:pointer;margin-top:0.5rem}
 
+/* ===== HER VOICE / SINGING ===== */
+.voice-section{background:linear-gradient(180deg,#1a0a2e,#2d1b4e 30%,#1a1a2e 70%,#0d1526);overflow:hidden;position:relative}
+.voice-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+
+/* Animated Sound Waves */
+.voice-waves{position:absolute;bottom:0;left:0;right:0;height:200px}
+.voice-wave{position:absolute;bottom:0;left:-5%;width:110%;height:100%;border-radius:50% 50% 0 0;opacity:0.06}
+.voice-wave-1{background:var(--rose);animation:voiceWave 6s ease-in-out infinite}
+.voice-wave-2{background:var(--lavender);animation:voiceWave 8s ease-in-out infinite 1s;height:80%}
+.voice-wave-3{background:var(--gold);animation:voiceWave 10s ease-in-out infinite 2s;height:60%}
+@keyframes voiceWave{0%,100%{transform:translateX(0) scaleY(1)}25%{transform:translateX(2%) scaleY(1.2)}50%{transform:translateX(-1%) scaleY(0.8)}75%{transform:translateX(1%) scaleY(1.15)}}
+
+/* Floating Music Notes */
+.voice-notes{position:absolute;inset:0;overflow:hidden}
+.voice-note{position:absolute;font-size:1.2rem;color:var(--rose);opacity:0;animation:noteFloat linear forwards;pointer-events:none;text-shadow:0 0 10px rgba(232,160,191,0.5)}
+@keyframes noteFloat{0%{opacity:0;transform:translateY(0) rotate(0deg) scale(0.5)}15%{opacity:0.6}70%{opacity:0.3}100%{opacity:0;transform:translateY(-100vh) rotate(360deg) scale(1.2)}}
+
+/* Content */
+.voice-content{text-align:center;max-width:700px;margin:0 auto;position:relative;z-index:2}
+.voice-text p{margin-bottom:1.2rem;font-size:1.05rem;color:rgba(255,255,255,0.65);line-height:1.9}
+.voice-highlight{font-family:var(--font-heading) !important;font-size:1.2rem !important;color:var(--rose) !important;margin-top:1.5rem !important;padding:1.5rem;background:rgba(232,160,191,0.08);border-radius:16px;border:1px solid rgba(232,160,191,0.15)}
+
+/* Turkish Lyrics Carousel */
+.voice-lyrics-title{font-family:var(--font-script);font-size:1.3rem;color:var(--gold-light);margin:2.5rem 0 1.5rem;text-align:center}
+.voice-lyrics-carousel{position:relative;min-height:200px;margin-bottom:1rem}
+.voice-lyric-card{position:absolute;inset:0;padding:2rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;backdrop-filter:blur(10px);opacity:0;transform:translateX(40px) scale(0.95);transition:all 0.6s cubic-bezier(0.22,1,0.36,1);display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.voice-lyric-card.active{opacity:1;transform:translateX(0) scale(1);pointer-events:auto}
+.lyric-music-icon{font-size:1.8rem;color:var(--gold);margin-bottom:1rem;animation:musicPulse 2s ease-in-out infinite}
+@keyframes musicPulse{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.15);opacity:1}}
+.lyric-turkish{font-size:1.15rem;color:var(--gold-light);line-height:1.8;margin-bottom:0.8rem;font-weight:500;letter-spacing:0.02em}
+.lyric-translation{font-size:0.95rem;color:rgba(255,255,255,0.5);line-height:1.7;font-style:italic;margin-bottom:0.6rem}
+.lyric-note{font-family:var(--font-script);font-size:0.95rem;color:var(--rose);opacity:0.8}
+
+/* Carousel Dots */
+.voice-carousel-dots{display:flex;gap:0.5rem;justify-content:center;margin-bottom:2.5rem}
+.voice-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);cursor:pointer;transition:all 0.3s ease;padding:0}
+.voice-dot.active{background:var(--rose);border-color:var(--rose);box-shadow:0 0 10px rgba(232,160,191,0.4);transform:scale(1.2)}
+.voice-dot:hover{background:rgba(232,160,191,0.4)}
+
+/* Play Voice Button */
+.voice-play-section{margin:1rem 0 2.5rem}
+.btn-play-voice{display:inline-flex;align-items:center;gap:0.8rem;padding:1rem 2.2rem;background:linear-gradient(135deg,rgba(232,160,191,0.15),rgba(212,197,226,0.15));color:var(--white);border:1.5px solid rgba(232,160,191,0.3);border-radius:50px;font-size:0.95rem;font-weight:500;transition:all 0.4s ease;backdrop-filter:blur(10px);cursor:pointer;position:relative;overflow:hidden}
+.btn-play-voice::before{content:'';position:absolute;inset:-2px;border-radius:50px;background:linear-gradient(135deg,var(--rose),var(--lavender),var(--gold));opacity:0;transition:opacity 0.4s ease;z-index:-1;filter:blur(8px)}
+.btn-play-voice:hover{transform:translateY(-3px);box-shadow:0 10px 35px rgba(232,160,191,0.25);border-color:var(--rose)}
+.btn-play-voice:hover::before{opacity:0.3}
+.play-icon{font-size:1.3rem;animation:micBounce 2s ease-in-out infinite}
+@keyframes micBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+/* Voice Message Overlay */
+.voice-message{display:none;position:fixed;inset:0;background:rgba(26,10,46,0.92);backdrop-filter:blur(15px);z-index:300;align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
+.voice-message.show{display:flex}
+.voice-message-inner{text-align:center;max-width:520px;padding:3rem 2.5rem;background:linear-gradient(135deg,rgba(45,27,78,0.6),rgba(15,21,38,0.6));border:1px solid rgba(232,160,191,0.15);border-radius:24px;animation:fadeUp 0.6s ease;backdrop-filter:blur(10px)}
+.voice-message-notes{font-size:2rem;color:var(--gold-light);margin-bottom:1.5rem;letter-spacing:0.3em;animation:notesFloat 3s ease-in-out infinite}
+@keyframes notesFloat{0%,100%{transform:translateY(0);opacity:0.6}50%{transform:translateY(-8px);opacity:1}}
+.voice-message-main{font-family:var(--font-heading);font-size:1.6rem;color:var(--white);margin-bottom:1.5rem;line-height:1.5}
+.voice-message-inner p{color:rgba(255,255,255,0.65);font-size:0.95rem;line-height:1.9;margin-bottom:1rem}
+.voice-message-closing{font-family:var(--font-heading) !important;font-size:1.1rem !important;color:var(--rose) !important;margin-top:1.5rem !important;padding-top:1rem;border-top:1px solid rgba(232,160,191,0.15)}
+.btn-close-voice-msg{margin-top:1.5rem;padding:0.8rem 2rem;background:linear-gradient(135deg,var(--rose),var(--lavender));color:var(--white);border-radius:50px;font-size:0.9rem;cursor:pointer;border:none;transition:all 0.3s ease;box-shadow:0 4px 20px rgba(232,160,191,0.2)}
+.btn-close-voice-msg:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,160,191,0.4)}
+
+/* Voice Final */
+.voice-final{margin-top:1rem;padding:2rem;background:rgba(255,255,255,0.03);border-radius:20px;border:1px solid rgba(255,255,255,0.06)}
+.voice-final p{font-family:var(--font-heading);font-size:1.1rem;color:rgba(255,255,255,0.6);line-height:1.9;margin:0}
+.voice-final em{color:var(--gold-light);font-style:italic}
+
+/* Responsive */
+@media(max-width:768px){
+  .voice-lyric-card{padding:1.5rem 1rem}
+  .lyric-turkish{font-size:1rem}
+  .voice-message-inner{padding:2rem 1.5rem}
+  .voice-message-main{font-size:1.3rem}
+  .btn-play-voice{padding:0.8rem 1.6rem;font-size:0.85rem}
+  .voice-highlight{padding:1rem;font-size:1rem !important}
+  .voice-lyrics-carousel{min-height:220px}
+  .voice-final{padding:1.5rem}
+  .voice-final p{font-size:0.95rem}
+}
+
 /* ===== CONFETTI ===== */
 .confetti-container{position:fixed;inset:0;pointer-events:none;z-index:600;overflow:hidden}
 .confetti-piece{position:fixed;top:-10px;width:10px;height:10px;opacity:0.9;animation:confettiFall linear forwards}

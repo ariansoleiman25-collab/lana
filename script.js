@@ -756,7 +756,10 @@ document.addEventListener('DOMContentLoaded', () => {
     "I love the way you exist.",
     "Your laugh is my favorite sound.",
     "Keep going, I believe in you.",
-    "You deserve every good thing."
+    "You deserve every good thing.",
+    "Your voice is pure magic…",
+    "Sing for me one day…",
+    "Your Turkish songs melt my heart."
   ];
 
   let lastWhisperTime = 0;
@@ -1146,6 +1149,127 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => shakeHint.classList.remove('show'), 5000);
       }, 10000);
     }
+  }
+
+  // ===== HER VOICE — SINGING SECTION =====
+
+  // --- Turkish Lyrics Carousel ---
+  const lyricCards = document.querySelectorAll('.voice-lyric-card');
+  const lyricDots = document.querySelectorAll('.voice-dot');
+  let currentLyric = 0;
+  let lyricInterval;
+
+  function showLyric(index) {
+    lyricCards.forEach((card, i) => {
+      card.classList.toggle('active', i === index);
+    });
+    lyricDots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    currentLyric = index;
+  }
+
+  function nextLyric() {
+    showLyric((currentLyric + 1) % lyricCards.length);
+  }
+
+  if (lyricCards.length > 0) {
+    // Auto-advance every 5 seconds
+    lyricInterval = setInterval(nextLyric, 5000);
+
+    // Dot click navigation
+    lyricDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        clearInterval(lyricInterval);
+        showLyric(parseInt(dot.dataset.index));
+        lyricInterval = setInterval(nextLyric, 5000);
+      });
+    });
+
+    // Touch swipe for mobile
+    const carousel = document.getElementById('voice-lyrics-carousel');
+    if (carousel) {
+      let touchStartX = 0;
+      carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      carousel.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          clearInterval(lyricInterval);
+          if (diff > 0) {
+            showLyric((currentLyric + 1) % lyricCards.length);
+          } else {
+            showLyric((currentLyric - 1 + lyricCards.length) % lyricCards.length);
+          }
+          lyricInterval = setInterval(nextLyric, 5000);
+        }
+      }, { passive: true });
+    }
+  }
+
+  // --- Floating Music Notes ---
+  const voiceNotesContainer = document.getElementById('voice-notes');
+  const voiceSection = document.querySelector('.voice-section');
+  const musicNoteSymbols = ['♪', '♫', '♬', '♩', '𝅗𝅥', '🎵', '🎶'];
+  let voiceNoteInterval;
+
+  function spawnMusicNote() {
+    if (!voiceNotesContainer) return;
+    const note = document.createElement('span');
+    note.className = 'voice-note';
+    note.textContent = musicNoteSymbols[Math.floor(Math.random() * musicNoteSymbols.length)];
+    note.style.left = (5 + Math.random() * 90) + '%';
+    note.style.bottom = '-20px';
+    note.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+    note.style.animationDuration = (6 + Math.random() * 8) + 's';
+    const hue = Math.random() > 0.5 ? 'var(--rose)' : 'var(--gold-light)';
+    note.style.color = hue;
+    voiceNotesContainer.appendChild(note);
+    setTimeout(() => note.remove(), 15000);
+  }
+
+  if (voiceSection) {
+    const voiceObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Start spawning notes
+          if (!voiceNoteInterval) {
+            for (let i = 0; i < 4; i++) setTimeout(spawnMusicNote, i * 400);
+            voiceNoteInterval = setInterval(spawnMusicNote, 1500);
+          }
+        } else {
+          // Stop spawning when out of view
+          clearInterval(voiceNoteInterval);
+          voiceNoteInterval = null;
+        }
+      });
+    }, { threshold: 0.2 });
+    voiceObserver.observe(voiceSection);
+  }
+
+  // --- Voice Message Overlay ---
+  const btnPlayVoice = document.getElementById('btn-play-voice');
+  const voiceMessage = document.getElementById('voice-message');
+  const btnCloseVoiceMsg = document.getElementById('btn-close-voice-msg');
+
+  if (btnPlayVoice && voiceMessage) {
+    btnPlayVoice.addEventListener('click', () => {
+      voiceMessage.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeVoiceMessage() {
+      voiceMessage.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    if (btnCloseVoiceMsg) {
+      btnCloseVoiceMsg.addEventListener('click', closeVoiceMessage);
+    }
+
+    // Click background to close
+    voiceMessage.addEventListener('click', (e) => {
+      if (e.target === voiceMessage) closeVoiceMessage();
+    });
   }
 
 });
